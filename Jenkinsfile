@@ -32,5 +32,18 @@ pipeline {
         }
       }
     }
+    stage('Build and push images') {
+      environment {
+        DOCKER_IMAGE = "sjangale/industryimagerepo1:${BUILD_NUMBER}"
+	REGISTRY_CREDENTIALS = credentials('docker-cred')
+      }
+      steps {
+        sh 'docker build -t ${DOCKER_IMAGE} .'
+            def dockerImage = docker.image("${DOCKER_IMAGE}")
+            docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
+                dockerImage.push()
+            }
+      }
+    }
   }
 }
