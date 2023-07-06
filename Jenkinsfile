@@ -1,56 +1,23 @@
 pipeline {
-  agent {
-    docker {
-      image 'abhishekf5/maven-abhishek-docker-agent:v1'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' 
+    agent any
+    environment {
+        PATH = "usr/bin/mvn:$PATH"
     }
-  }
-  stages {
-    stage('Checkout') {
-      steps('Checkout') {
-        sh 'echo passed'
-      }
-    }
-    stage('Build') {
-      steps {
-        sh 'mvn clean install'
-      }
-    }
-
-    stage('Unit Test') {
-      steps {
-        sh 'mvn test'
-      }
-    }
-    stage('Static Code Analysis') {
-      environment {
-        SONAR_URL = "http://65.0.95.218:9000"
-      }
-      steps {
-        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-        sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+    stages {
+        stage("welcome msg"){
+            steps {
+                echo "Welcome to demo pipeline"
+            }
         }
-      }
-    }
-    stage('Build and push images') {
-      environment {
-        DOCKER_IMAGE = "sjangale/industryimagerepo1:${BUILD_NUMBER}"
-        REGISTRY_CREDENTIALS = 'docker-cred'
-      }
-      steps {
-        sh 'docker build -t ${DOCKER_IMAGE} .'
-        script {
-          def dockerImage = docker.image("${DOCKER_IMAGE}")
-          docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
-            dockerImage.push()
-          }
+        stage("git checkout"){
+            steps {
+                git 'https://github.com/ShubhamJangle8/zomatoApp.git'
+            }
         }
-      }
+        stage("clean"){
+            steps {
+                sh "mvn clean"
+            }
+        }
     }
-  }
 }
-
-
-
-
-
