@@ -11,7 +11,7 @@ pipeline {
         }
         stage("git checkout"){
             steps {
-                git 'https://github.com/ShubhamJangle8/zomatoApp.git'
+                git 'https://github.com/ShubhamJangle8/DevopsIndustryPro1.git'
             }
         }
         stage("clean"){
