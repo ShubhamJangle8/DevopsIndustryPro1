@@ -31,11 +31,13 @@ pipeline {
             }
         }
         stage("deploy"){
-            sshagent(['d6dc7f63-549c-436e-bc12-b95523e5c7af']) {
-                // some block
-                sh """
-                    scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@3.110.62.75:/usr/share/tomcat/webapps
-                """
+            steps {
+                sshagent(['d6dc7f63-549c-436e-bc12-b95523e5c7af']) {
+                    // some block
+                    sh """
+                        scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@3.110.62.75:/usr/share/tomcat/webapps
+                    """
+                }
             }
         }
     }
