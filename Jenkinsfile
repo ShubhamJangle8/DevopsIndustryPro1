@@ -12,8 +12,12 @@ pipeline {
         stage("commit"){
             steps {
                 git branch: 'main', url: 'https://github.com/ShubhamJangle8/DevopsIndustryPro1.git'
+            }   
+        }
+        stage("clean"){
+            steps {
+                sh "mvn clean"
             }
-            
         }
     }
 }
