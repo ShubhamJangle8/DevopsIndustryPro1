@@ -32,7 +32,7 @@ pipeline {
         }
         stage("deploy"){
             steps {
-                sh "mv target/myweb.war ec2-user@3.110.62.75:/usr/share/tomcat/webapps/"
+                sh "mv target/myweb.war /usr/share/tomcat/webapps/"
             }
         }
     }
