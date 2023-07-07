@@ -32,12 +32,7 @@ pipeline {
         }
         stage("deploy"){
             steps {
-                sshagent(['tomcat']) {
-                    // some block
-                    sh """
-                        scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@3.110.62.75:/usr/share/tomcat/webapps
-                    """
-                }
+                sh "mv -o StrictHostKeyChecking=no target/myweb.war ec2-user@3.110.62.75:/usr/share/tomcat/webapps/"
             }
         }
     }
