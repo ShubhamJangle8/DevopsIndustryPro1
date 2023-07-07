@@ -27,12 +27,11 @@ pipeline {
         stage("package"){
             steps {
                 sh "mvn package"
-                sh "mv target/*.war target/myweb.war"
             }
         }
         stage("deploy"){
             steps {
-                sh "sudo cp target/myweb.war /usr/share/tomcat/webapps/"
+                sh "sudo cp target/ABCtechnologies-1.0.war /usr/share/tomcat/webapps/"
             }
         }
     }
