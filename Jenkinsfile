@@ -32,7 +32,7 @@ pipeline {
         }
         stage("deploy"){
             steps {
-                sh "mv target/myweb.war /usr/share/tomcat/webapps/"
+                sh "sudo mv target/myweb.war /usr/share/tomcat/webapps/"
             }
         }
     }
