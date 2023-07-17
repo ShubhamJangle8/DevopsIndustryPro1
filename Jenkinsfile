@@ -29,7 +29,7 @@ pipeline {
         }
         stage("deploy"){
             steps {
-                sh "sudo cp target/ABCtechnologies-1.0.war /usr/share/tomcat/webapps/"
+                sh "sudo cp /var/lib/jenkins/workspace/deploy/target/ABCtechnologies-1.0.war /usr/share/tomcat/webapps/"
             }
         }
     }
