@@ -32,5 +32,10 @@ pipeline {
                 sh "sudo cp /var/lib/jenkins/workspace/jenkinsPipeline/target/ABCtechnologies-1.0.war /usr/share/tomcat/webapps/"
             }
         }
+        stage("docker build"){
+            steps {
+                sh "docker build . -t image:latest"
+            }
+        }
     }
 }
